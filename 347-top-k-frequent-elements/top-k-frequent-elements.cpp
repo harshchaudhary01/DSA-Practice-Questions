@@ -6,23 +6,22 @@ public:
         for(int i = 0; i < nums.size(); i++){
             mp[nums[i]]++;
         }
-
-        priority_queue<P,vector<P>,greater<P>> pq;
-        for(auto it: mp){
-            int val = it.first;
-            int freq = it.second;
-            pq.push({freq,val});
-
-            if(pq.size() > k){
-                pq.pop();
+        
+        vector<vector<int>>arr(nums.size()+1);
+        for(auto &it: mp){
+            arr[it.second].push_back(it.first);
+        }
+        int n = nums.size();
+        vector<int>result;
+        for(int i = n; i >= 0; i--){
+            if(arr[i].size() == 0) continue;
+            while(arr[i].size()>0 && k > 0){
+                result.push_back(arr[i].back());
+                arr[i].pop_back();
+                k--;
             }
         }
-
-        vector<int>result;
-        while(!pq.empty()){
-            result.push_back(pq.top().second);
-            pq.pop();
-        }
         return result;
+
     }
 };
