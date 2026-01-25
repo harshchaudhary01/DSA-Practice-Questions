@@ -4,8 +4,14 @@ public:
         vector<vector<string>>result;
         unordered_map<string, vector<string>>mpp;
         for(auto &it: strs){
-            string temp = it;
-            sort(temp.begin(), temp.end());
+            vector<int>count(26,0);
+            for(auto &k: it){
+                count[k-'a']++;
+            }
+            string temp;
+            for(int i = 0; i < 26; i++){
+                temp += '#'+count[i];
+            }
             mpp[temp].push_back(it);
         }
         for(auto &it: mpp){
