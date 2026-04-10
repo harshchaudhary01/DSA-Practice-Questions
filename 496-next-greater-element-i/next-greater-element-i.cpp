@@ -1,26 +1,18 @@
 class Solution {
 public:
     vector<int> nextGreaterElement(vector<int>& nums1, vector<int>& nums2) {
-        if(nums1.size() == 0 || nums2.size() == 0) return {};
-        vector<int>result;
-        unordered_map<int,int>tempArr;
-        for(int i = 0; i < nums2.size()-1; i++){
-            for(int j = i+1; j < nums2.size(); j++){
-                if(nums2[j] > nums2[i]){
-                     tempArr[nums2[i]] = nums2[j];
-                     break;
-                }
-            }
+        stack<int>st;
+        unordered_map<int,int>mpp;
+        for(int i = nums2.size()-1; i >= 0; i--){
+            while(!st.empty() && st.top() <= nums2[i]) st.pop();
+            mpp[nums2[i]] = st.empty() ? -1 : st.top();
+            st.push(nums2[i]);
         }
-        tempArr[nums2[nums2.size()-1]] = -1;
-
-        for(auto k: tempArr){
-            cout<<k.first<<"\t"<<k.second<<endl;
+        vector<int>res;
+        for(int k: nums1){
+            res.push_back(mpp[k]);
         }
-        
-        for(int i = 0; i < nums1.size(); i++){
-            result.push_back((tempArr[nums1[i]]) ? (tempArr[nums1[i]]): -1 );
-        }
-        return result;
+        return res;
     }
+
 };
