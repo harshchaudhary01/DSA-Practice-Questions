@@ -1,23 +1,22 @@
 class Solution {
 public:
     vector<vector<int>> threeSum(vector<int>& nums) {
+        set<vector<int>> result;
         sort(nums.begin(), nums.end());
-        set<vector<int>>stt;
-        for(int i = 0; i < nums.size(); i++){
-            int target = -nums[i];
-            int lo = i+1;
-            int hi = nums.size()-1;
-            while(lo < hi){
-                int temp = nums[lo] + nums[hi];
-                if(temp == target){
-                    stt.insert({nums[i], nums[lo], nums[hi]});
-                    lo++;
-                    hi--;
+        int i = 0, j = nums.size()-1;
+        for(int i = 0; i < nums.size()-2; i++){
+            int target = 0 - nums[i];
+            int low = i+1, high = nums.size()-1;
+            while(low < high){
+                if(nums[low]+nums[high] == target){
+                    result.insert({nums[i], nums[low], nums[high]});
+                    low++;
+                    high--;
                 }
-                else if(temp > target) hi--;
-                else lo++;
+                else if(nums[low]+nums[high] > target) high--;
+                else low++;
             }
         }
-        return vector<vector<int>>(stt.begin(), stt.end());
+        return vector<vector<int>>(result.begin(), result.end());
     }
 };
