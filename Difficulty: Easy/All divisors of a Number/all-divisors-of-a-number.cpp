@@ -1,0 +1,15 @@
+class Solution {
+  public:
+    vector<int> getDivisors(int n) {
+        // code here
+        vector<int>arr;
+        for(int i = 1; i*i <= n; i++){
+            if(n % i == 0){
+                arr.push_back(i);
+                if(i != n / i) arr.push_back(n/i);
+            }
+        }
+        sort(arr.begin(), arr.end());
+        return arr;
+    }
+};
