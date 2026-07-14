@@ -3,12 +3,12 @@ public:
     vector<int> twoSum(vector<int>& nums, int target) {
         unordered_map<int,int>mpp;
         for(int i = 0; i < nums.size(); i++){
-            int left = target - nums[i];
-            if(mpp.find(left) != mpp.end()){
-                return {mpp[left], i};
+            int x = target - nums[i];
+            if(mpp.find(x) != mpp.end()){
+                return {mpp[x], i};
             }
-            mpp.insert({nums[i], i});
+            mpp[nums[i]] =  i;
         }
-        return {0,0};
+        return {};
     }
 };
